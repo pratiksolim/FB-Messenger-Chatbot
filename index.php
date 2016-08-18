@@ -16,7 +16,7 @@
 
   $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
-  $reply = "I don't understand. Ask me to tell a joke. ;-)";
+  $reply = "I don't understand. Ask me to 'tell a joke'. ;-)";
 
   if(preg_match('/(send|tell|text)(.*?)joke/', $message)){
     $res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
@@ -28,10 +28,10 @@
 
     $jsonData = "{
       'recipient': {
-        'id': '$userID'
+        'id': $userID
       },
       'message': {
-        'text': '$reply'
+        'text': '".addslashes($reply)."'
       }
     }";
 
