@@ -16,19 +16,22 @@
 
   $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
-  //echo $userID." & ".$message;
+  $reply = "I don't understand. Ask me to tell a joke. ;-)"
 
-  //..............
+  if(preg_match('/(send|tell|text)(.*?)joke/', $message)){
+    $res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
+    $reply = $res['value']['joke'];
+  }
 
 
     $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
 
     $jsonData = "{
       'recipient': {
-        'id': $userID
+        'id': '$userID'
       },
       'message': {
-        'text': 'Hi, bro!'
+        'text': '$reply'
       }
     }";
 
