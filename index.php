@@ -1,6 +1,6 @@
 <?php
 
-  $accessToken = "";
+  $accessToken = "EAAJTC6sof2wBACGf5fYprTX2fqKz5Ckr80OuHtaXOJeBZAfqHZCySZAreC1MsDMjnQKucHLV1MMKVQiRxeIgyVjvV6JGCLa6nXzM7vO8WqZC2dCKN1VzESxAi1l7ULUEFO9W3Wow1v5Ayf2qvMbEZBr5zmF1hAtRDhoAFxmStJwZDZD";
 
   if(isset($_REQUEST['hub_challenge'])){
     $challenge = $_REQUEST['hub_challenge'];
