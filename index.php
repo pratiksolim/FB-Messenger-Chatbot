@@ -28,7 +28,7 @@
         'id': $userID
       },
       'message': {
-        'text': 'hi 123'
+        'text': $message
       }
     }";
 
