@@ -10,6 +10,8 @@
     echo $challenge;
   }
 
+  $message = "height of taj";
+
   $input = json_decode(file_get_contents('php://input'), true);
 
   $userID = $input['entry'][0]['messaging'][0]['sender']['id'];
@@ -20,12 +22,16 @@
 
   $encodedmsg = rawurlencode($message);
 
-  if(preg_match('/(send|tell|text)(.*?)joke/', $message)){
+  echo $encodedmsg;
+
+  if($message){
     //$res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
     //$reply = $res['value']['joke'];
     $rawres = file_get_contents("http://api.wolframalpha.com/v2/query?appid=Y54W77-QTLUYKJL75&input=$encodedmsg");
     $res = simplexml_load_string($rawres);
+    echo $res;
     $reply = $res->plaintext;
+    echo $reply;
   }
 
 
