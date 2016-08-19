@@ -18,9 +18,14 @@
 
   $reply = "I don't understand. Ask me to 'tell a joke'. ;-)";
 
+  $encodedmsg = rawurlencode($message);
+
   if(preg_match('/(send|tell|text)(.*?)joke/', $message)){
-    $res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
-    $reply = $res['value']['joke'];
+    //$res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
+    //$reply = $res['value']['joke'];
+    $rawres = file_get_contents("http://api.wolframalpha.com/v2/query?appid=Y54W77-QTLUYKJL75&input=$encodedmsg");
+    $res = simplexml_load_string($rawres);
+    $reply = $res->plaintext;
   }
 
 
