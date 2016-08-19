@@ -24,15 +24,22 @@
 
   echo $encodedmsg;
 
+  function get($string, $start, $end){
+    $string = ' ' . $string;
+    $ini = strpos($string, $start);
+    if ($ini == 0) return '';
+    $ini += strlen($start);
+    $len = strpos($string, $end, $ini) - $ini;
+    return substr($string, $ini, $len);
+  }
+
   if($message){
     //$res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
     //$reply = $res['value']['joke'];
-    $res = simplexml_load_file("http://api.wolframalpha.com/v2/query?appid=Y54W77-QTLUYKJL75&input=$encodedmsg");
-    echo $res;
-    $reply = $res->plaintext;
-    echo $reply;
+    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$encodedmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&podindex=2";
+    $res = file_get_contents($apiurl);
+    $reply = get($res,'<plaintext>','</plaintext>');
   }
-
 
     $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
 
@@ -50,7 +57,7 @@
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
+    //curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 
     if(!empty($input['entry'][0]['messaging'][0]['message'])){
       curl_exec($ch);
