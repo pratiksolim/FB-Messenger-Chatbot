@@ -34,9 +34,7 @@
   }
 
   if($message){
-    //$res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
-    //$reply = $res['value']['joke'];
-    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$encodedmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&podindex=2";
+    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$encodedmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext";
     $res = file_get_contents($apiurl);
     $reply = get($res,'<plaintext>','</plaintext>');
   }
@@ -61,6 +59,5 @@
 
     if(!empty($input['entry'][0]['messaging'][0]['message'])){
       curl_exec($ch);
-      //..........
     }
  ?>
