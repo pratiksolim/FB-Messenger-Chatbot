@@ -27,8 +27,7 @@
   if($message){
     //$res = json_decode(file_get_contents('http://api.icndb.com/jokes/random'), true);
     //$reply = $res['value']['joke'];
-    $rawres = file_get_contents("http://api.wolframalpha.com/v2/query?appid=Y54W77-QTLUYKJL75&input=$encodedmsg");
-    $res = simplexml_load_string($rawres);
+    $res = simplexml_load_file("http://api.wolframalpha.com/v2/query?appid=Y54W77-QTLUYKJL75&input=$encodedmsg");
     echo $res;
     $reply = $res->plaintext;
     echo $reply;
@@ -51,6 +50,7 @@
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 
     if(!empty($input['entry'][0]['messaging'][0]['message'])){
       curl_exec($ch);
