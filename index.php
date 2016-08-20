@@ -34,7 +34,7 @@
   }
 
   if($message){
-    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$finalmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&podindex=1";
+    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$finalmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&excludepodid=Image:PeopleData&podtitle=Result";
     $res = file_get_contents($apiurl);
     $reply = get($res,'<plaintext>','</plaintext>');
   }
