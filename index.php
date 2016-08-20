@@ -18,11 +18,11 @@
 
   $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
-  $reply = "I don't understand. Ask me to 'tell a joke'. ;-)";
+  $reply = "I don't understand. Can you please explain a little?";
 
   $encodedmsg = rawurlencode($message);
 
-  echo $encodedmsg;
+  $finalmsg = str_replace("?","%3F",$encodedmsg);
 
   function get($string, $start, $end){
     $string = ' ' . $string;
@@ -34,7 +34,7 @@
   }
 
   if($message){
-    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$encodedmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext";
+    $apiurl = "http://api.wolframalpha.com/v2/query?input=".$finalmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&podindex=1";
     $res = file_get_contents($apiurl);
     $reply = get($res,'<plaintext>','</plaintext>');
   }
@@ -55,7 +55,6 @@
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    //curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
 
     if(!empty($input['entry'][0]['messaging'][0]['message'])){
       curl_exec($ch);
