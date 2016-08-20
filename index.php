@@ -12,7 +12,7 @@
 
   $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
 
-  $jsonData = "{
+  /* $jsonData = "{
     'setting_type':'greeting',
     'greeting':{
     'text':'Hi, I am Arceus. You can ask me any general query & I will answer in minimal time.'
@@ -25,7 +25,7 @@
   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
   curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-  curl_exec($ch);
+  curl_exec($ch); */
 
   $input = json_decode(file_get_contents('php://input'), true);
 
