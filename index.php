@@ -10,6 +10,8 @@
     echo $challenge;
   }
 
+  $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
+
   $jsonData = "{
     'setting_type':'greeting',
     'greeting':{
@@ -53,8 +55,6 @@
   if(!$reply){
     $reply = "I am unable to get any information regarding this query. Sorry for inconvenience.";
   }
-
-    $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
 
     $jsonData = "{
       'recipient': {
