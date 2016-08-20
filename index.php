@@ -10,15 +10,26 @@
     echo $challenge;
   }
 
-  $message = "height of taj";
+  $jsonData = "{
+    'setting_type':'greeting',
+    'greeting':{
+    'text':'Hi, I am Arceus. You can ask me any general query & I will answer in minimal time.'
+    }
+  }";
+
+  $ch = curl_init($url);
+
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+  curl_exec($ch);
 
   $input = json_decode(file_get_contents('php://input'), true);
 
   $userID = $input['entry'][0]['messaging'][0]['sender']['id'];
 
   $message = $input['entry'][0]['messaging'][0]['message']['text'];
-
-  $reply = "I don't understand. Can you please explain a little?";
 
   $encodedmsg = rawurlencode($message);
 
@@ -37,6 +48,10 @@
     $apiurl = "http://api.wolframalpha.com/v2/query?input=".$finalmsg."&appid=Y54W77-QTLUYKJL75&format=plaintext&excludepodid=Image:PeopleData&podtitle=Result";
     $res = file_get_contents($apiurl);
     $reply = get($res,'<plaintext>','</plaintext>');
+  }
+
+  if(!$reply){
+    $reply = "I am unable to get any information regarding this query. Sorry for inconvenience.";
   }
 
     $url = "https://graph.facebook.com/v2.6/me/messages?access_token=$accessToken";
